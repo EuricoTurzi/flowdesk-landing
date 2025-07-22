@@ -1,9 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Calendar, Users, MessageCircle, Camera, BarChart3, Sparkles, Clock, DollarSign, CheckCircle, Star, Menu, X, Zap, Shield, Smartphone } from 'lucide-react';
 
 const FlowDeskLanding = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedScenario, setSelectedScenario] = useState('tattoo');
+  const [isVisible, setIsVisible] = useState({});
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(prev => ({
+              ...prev,
+              [entry.target.id]: true
+            }));
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    // Observar todas as seções
+    const sections = document.querySelectorAll('[data-animate]');
+    sections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, []);
 
   const scenarios = {
     tattoo: {
@@ -98,13 +121,13 @@ const FlowDeskLanding = () => {
     {
       name: "Bariangela", 
       role: "Maquiadora",
-      location: "Paraná",
+      location: "São Paulo",
       text: "Nossa, preciso disso urgente! Sempre rola confusão de horário com as noivas. Um sistema assim ia dar muito mais credibilidade pro meu trabalho.",
       rating: 5,
       metric: "Validação"
     },
     {
-      name: "Helo",
+      name: "Helô",
       role: "Nail Designer",
       location: "São Paulo", 
       text: "Achei a ideia incrível! Meus clientes sempre perguntam que cor usaram da última vez. Ter isso organizado seria perfeito.",
@@ -115,6 +138,87 @@ const FlowDeskLanding = () => {
 
   return (
     <div className="min-h-screen bg-white">
+      <style jsx>{`
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+        
+        @keyframes slideUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        @keyframes slideInLeft {
+          from {
+            opacity: 0;
+            transform: translateX(-20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+        
+        @keyframes slideInRight {
+          from {
+            opacity: 0;
+            transform: translateX(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+        
+        @keyframes scaleIn {
+          from {
+            opacity: 0;
+            transform: scale(0.95);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+        
+        .animate-fade-in {
+          animation: fadeIn 0.8s ease-out forwards;
+        }
+        
+        .animate-slide-up {
+          animation: slideUp 0.6s ease-out forwards;
+        }
+        
+        .animate-slide-in-left {
+          animation: slideInLeft 0.7s ease-out forwards;
+        }
+        
+        .animate-slide-in-right {
+          animation: slideInRight 0.7s ease-out forwards;
+        }
+        
+        .animate-scale-in {
+          animation: scaleIn 0.5s ease-out forwards;
+        }
+        
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; }
+        .delay-600 { animation-delay: 0.6s; }
+      `}</style>
       {/* Header */}
       <header className="border-b border-gray-100 sticky top-0 z-50 bg-white/80 backdrop-blur-md">
         <div className="container mx-auto px-6 py-4 flex justify-between items-center">
@@ -155,25 +259,25 @@ const FlowDeskLanding = () => {
       <section className="py-24 bg-gradient-to-b from-gray-50 to-white">
         <div className="container mx-auto px-6 text-center">
           <div className="max-w-4xl mx-auto">
-            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight animate-fade-in">
               Profissionalize seu<br />
               <span className="text-gray-600">negócio de beleza</span>
             </h1>
-            <p className="text-xl text-gray-600 mb-12 leading-relaxed max-w-3xl mx-auto">
+            <p className="text-xl text-gray-600 mb-12 leading-relaxed max-w-3xl mx-auto animate-slide-up delay-200">
               Sistema completo de gestão para nail designers, lash designers, cabeleireiros, 
               barbeiros e profissionais autônomos de beleza.
             </p>
             
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
-              <div className="flex flex-col items-center space-y-2">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center animate-slide-up delay-400">
+              <div className="flex flex-col items-center space-y-2 transform hover:scale-105 transition-transform duration-200">
                 <CheckCircle className="w-5 h-5 text-green-600" />
                 <span className="text-sm text-gray-600">Organização total</span>
               </div>
-              <div className="flex flex-col items-center space-y-2">
+              <div className="flex flex-col items-center space-y-2 transform hover:scale-105 transition-transform duration-200">
                 <Shield className="w-5 h-5 text-green-600" />
                 <span className="text-sm text-gray-600">Menos desencontros</span>
               </div>
-              <div className="flex flex-col items-center space-y-2">
+              <div className="flex flex-col items-center space-y-2 transform hover:scale-105 transition-transform duration-200">
                 <Smartphone className="w-5 h-5 text-green-600" />
                 <span className="text-sm text-gray-600">Mais profissional</span>
               </div>
@@ -291,9 +395,9 @@ const FlowDeskLanding = () => {
       </section>
 
       {/* Features */}
-      <section id="features" className="py-24 bg-gray-50">
+      <section id="features" className="py-24 bg-gray-50" data-animate>
         <div className="container mx-auto px-6">
-          <div className="text-center mb-20">
+          <div className={`text-center mb-20 transition-all duration-700 ${isVisible.features ? 'animate-slide-up' : 'opacity-0'}`}>
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
               Como funcionaria
             </h2>
@@ -304,8 +408,14 @@ const FlowDeskLanding = () => {
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {features.map((feature, index) => (
-              <div key={index} className="bg-white p-8 rounded-xl hover:shadow-lg transition-all duration-300 border border-gray-100">
-                <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mb-6 text-gray-700">
+              <div 
+                key={index} 
+                className={`bg-white p-8 rounded-xl hover:shadow-lg hover:-translate-y-1 transition-all duration-300 border border-gray-100 transform ${
+                  isVisible.features ? 'animate-scale-in' : 'opacity-0'
+                }`}
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mb-6 text-gray-700 transform hover:scale-110 transition-transform duration-200">
                   {feature.icon}
                 </div>
                 <h3 className="font-semibold text-lg mb-3 text-gray-900">{feature.title}</h3>
@@ -390,9 +500,9 @@ const FlowDeskLanding = () => {
       </section>
 
       {/* Testimonials */}
-      <section id="testimonials" className="py-24 bg-gray-50">
+      <section id="testimonials" className="py-24 bg-gray-50" data-animate>
         <div className="container mx-auto px-6">
-          <div className="text-center mb-20">
+          <div className={`text-center mb-20 transition-all duration-700 ${isVisible.testimonials ? 'animate-slide-up' : 'opacity-0'}`}>
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
               Feedback de profissionais
             </h2>
@@ -403,9 +513,15 @@ const FlowDeskLanding = () => {
           
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {testimonials.map((testimonial, index) => (
-              <div key={index} className="bg-white p-8 rounded-xl border border-gray-100 hover:shadow-lg transition-shadow duration-300">
+              <div 
+                key={index} 
+                className={`bg-white p-8 rounded-xl border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 transform ${
+                  isVisible.testimonials ? 'animate-scale-in' : 'opacity-0'
+                }`}
+                style={{ animationDelay: `${index * 150}ms` }}
+              >
                 <div className="flex items-center mb-6">
-                  <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mr-4">
+                  <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mr-4 transform hover:scale-110 transition-transform duration-200">
                     <span className="text-lg font-semibold text-gray-700">
                       {testimonial.name.charAt(0)}
                     </span>
@@ -423,7 +539,10 @@ const FlowDeskLanding = () => {
                 <p className="text-gray-700 mb-4 leading-relaxed">"{testimonial.text}"</p>
                 <div className="flex text-yellow-400">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-current" />
+                    <Star 
+                      key={i} 
+                      className="w-4 h-4 fill-current transform hover:scale-110 transition-transform duration-200" 
+                    />
                   ))}
                 </div>
               </div>
@@ -513,7 +632,7 @@ const FlowDeskLanding = () => {
               <span className="text-xl font-semibold text-gray-900">FlowDesk</span>
             </div>
             <p className="text-gray-600 mb-6 max-w-md mx-auto leading-relaxed">
-              Conceito de sistema de gestão para profissionais em ascenção. 
+              Conceito de sistema de gestão para profissionais de beleza. 
               Ainda em fase de validação com o mercado.
             </p>
             <div className="text-center text-gray-500 text-sm">
