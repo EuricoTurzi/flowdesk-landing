@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/flowdesk-landing/static/css/main.a6f4ab0a.css",
-    "main.js": "/flowdesk-landing/static/js/main.eda2a0b0.js",
+    "main.js": "/flowdesk-landing/static/js/main.7ca0369a.js",
     "static/js/453.0a7a0247.chunk.js": "/flowdesk-landing/static/js/453.0a7a0247.chunk.js",
     "index.html": "/flowdesk-landing/index.html",
     "main.a6f4ab0a.css.map": "/flowdesk-landing/static/css/main.a6f4ab0a.css.map",
-    "main.eda2a0b0.js.map": "/flowdesk-landing/static/js/main.eda2a0b0.js.map",
+    "main.7ca0369a.js.map": "/flowdesk-landing/static/js/main.7ca0369a.js.map",
     "453.0a7a0247.chunk.js.map": "/flowdesk-landing/static/js/453.0a7a0247.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a6f4ab0a.css",
-    "static/js/main.eda2a0b0.js"
+    "static/js/main.7ca0369a.js"
   ]
 }
